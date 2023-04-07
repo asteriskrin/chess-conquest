@@ -1,2 +1,2 @@
-# chest-conquest
-Chest Conquest Game Repository
+# chess-conquest
+Chess Conquest Game Repository
