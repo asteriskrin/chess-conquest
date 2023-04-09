@@ -2,6 +2,7 @@ import socket
 import json
 from threading import Thread
 from frontend.GameFrontend import GameFrontend
+import time
 
 # Macro State
 # Defining current action state
@@ -179,6 +180,7 @@ def recvMsg(sock):
     global chessWindow
     global myRoomId
     global turnPlayerName, mainMenuWindow, isGameStarted
+    global gameFrontend
 
     while True:
         data = sock.recv(2048)
@@ -192,6 +194,7 @@ def recvMsg(sock):
             myRoomId = int(body["ROOM_ID"])
             chessWindow = gameFrontend.openChessGameWindow(
                 onPieceButtonSelected, onClickChessBox, onChat)
+            time.sleep(3)
             chessWindow.setRoomId(str(myRoomId))
             chessWindow.setPopUpMessage(
                 "Waiting for player... (1/4) " + str(playerName))
@@ -523,20 +526,19 @@ def onMainMenuButtonClick(buttonName):
             mainMenuWindow.showRoomMenu()
             mainMenuWindow.setPlayerNameInWelcome(playerName)
     elif buttonName == "CREATE_ROOM":
-        establishConnection()
         createRoom(serverSocket, playerName)
     elif buttonName == "JOIN_ROOM":
         myRoomId = mainMenuWindow.getRoomCodeInput()
         if not myRoomId or len(str(myRoomId)) < 6:
             mainMenuWindow.setRoomErrorText("Room Code tidak valid")
         else:
-            establishConnection()
             joinRoom(serverSocket, playerName)
 
 def guiThread():
     global gameFrontend
     gameFrontend = GameFrontend()
     gameFrontend.openMainMenuWindow(onMainMenuButtonClick)
+    establishConnection()
     gameFrontend.runLoop()
 
 

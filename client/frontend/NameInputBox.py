@@ -19,9 +19,13 @@ class NameInputBox:
         return self.text
 
     def handleEvent(self, event):
+        
+
         if event.type == pygame.MOUSEBUTTONDOWN:
             if self.rect.collidepoint(event.pos):
                 self.active = True
+                self.IS_HOVERED = True
+                print("NameInputBox box clicked\n")
             else:
                 self.active = False
 
@@ -40,5 +44,13 @@ class NameInputBox:
                 self.text_surface = self.font.render(self.text, 1, self.color)
 
     def draw(self, screen):
+        # Get mouse position
+        pos = pygame.mouse.get_pos()
+        # Draw box on hover
+        if self.rect.collidepoint(pos) == True:
+            pygame.draw.rect(screen, self.COLOR_ACTIVE, self.rect, 2)
+
+        else:
+            pygame.draw.rect(screen, self.color, self.rect, 2)
+            
         screen.blit(self.text_surface, (self.rect.x + 5, self.rect.y + 5))
-        pygame.draw.rect(screen, self.color, self.rect, 2)

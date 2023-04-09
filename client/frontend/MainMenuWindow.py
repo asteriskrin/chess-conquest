@@ -48,7 +48,7 @@ class MainMenuWindow(GameWindow):
         self.textRoomError = None
 
         # Name Input Text
-        self.textNameInput = self.baseFont.render("Masukkan Nama", True, (255, 255, 255))
+        self.textNameInput = self.baseFont.render("Enter username", True, (255, 255, 255))
 
         # Name Input Error Text
         self.nameInputErrorText = None
@@ -105,23 +105,23 @@ class MainMenuWindow(GameWindow):
     def handleEvent(self, event):
         if self.createRoomButton and self.createRoomButton.handleEvent(event):
             self.onButtonClickFunc("CREATE_ROOM")
-            return
+            
         
         if self.joinRoomButton and self.joinRoomButton.handleEvent(event):
             self.onButtonClickFunc("JOIN_ROOM")
-            return
+            
         
         if self.roomCodeInputBox:
             self.roomCodeInputBox.handleEvent(event)
-            return
+            
         
         if self.namaInputBox:
             self.namaInputBox.handleEvent(event)
-            return
+            
         
         if self.nameSubmitButton and self.nameSubmitButton.handleEvent(event):
             self.onButtonClickFunc("NAME_SUBMIT")
-            return
+            
 
     def draw(self, screen):
         screen.blit(self.background, (0, 0))
