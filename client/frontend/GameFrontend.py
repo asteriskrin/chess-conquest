@@ -22,8 +22,7 @@ class GameFrontend:
 
     def runLoop(self):
         self.run = True
-        while True:
-            if not self.run: continue
+        while self.run:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.run = False
@@ -55,7 +54,9 @@ class GameFrontend:
     def openChessGameWindow(self, callback1, callback2, callback3):
         if self.bgm:
             self.bgm.stop()
-        self.bgm = pygame.mixer.Sound("frontend/music/irreducible-111374.wav")
-        self.bgm.play(loops=1)
-        self.attachWindow(ChessGameWindow(callback1, callback2, callback3))
+
+        # TODO: Fix crash (reserach: find out)
+        # self.bgm = pygame.mixer.Sound("frontend/music/irreducible-111374.wav")
+        # self.bgm.play(loops=1)
+        self.__attachWindow(ChessGameWindow(callback1, callback2, callback3))
         return self.window
