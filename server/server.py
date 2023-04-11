@@ -1,17 +1,21 @@
 import socket
 import threading
 import json
+from dotenv import dotenv_values
 
 from Game.GameController import GameController
 from Game.Player import Player
 from Game.Room import Room
 from Game.Chessboard import Chessboard
 
+# Load environment variables
+config = dotenv_values(".env")
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-ipAddress = '127.0.0.1'
-port = 8000
+ipAddress = config['SERVER_IP']
+port = int(config['SERVER_PORT'])
+print(fr"Server is started on {ipAddress}:{port}")
 server.bind((ipAddress, port))
 server.listen(100)
 
