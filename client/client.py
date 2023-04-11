@@ -3,6 +3,10 @@ import json
 from threading import Thread
 from frontend.GameFrontend import GameFrontend
 import time
+from dotenv import dotenv_values
+
+# Load setting
+setting = dotenv_values('.setting')
 
 # Macro State
 # Defining current action state
@@ -493,8 +497,8 @@ def connectToServer(playerName):
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     # Server configuration
-    SERVER_IP_ADDRESS = "127.0.0.1"
-    SERVER_PORT = 8000
+    SERVER_IP_ADDRESS = setting['SERVER_IP']
+    SERVER_PORT = int(setting['SERVER_PORT'])
 
     # Connect to the server
     status = server.connect((SERVER_IP_ADDRESS, SERVER_PORT))
