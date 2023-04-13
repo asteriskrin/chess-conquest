@@ -40,8 +40,13 @@ class RoomCodeInputBox:
                 self.textSurface = self.font.render(self.roomCode, 1, self.color)
 
     def draw(self, screen):
+        pos = pygame.mouse.get_pos()
+        if self.rect.collidepoint(pos):
+            pygame.draw.rect(screen, self.COLOR_ACTIVE, self.rect, 2)
+        else:
+            pygame.draw.rect(screen, self.color, self.rect, 2)
+    
         screen.blit(self.textSurface, (self.rect.x + 5, self.rect.y + 5))
-        pygame.draw.rect(screen, self.color, self.rect, 2)
 
     def getRoomCode(self):
         if not self.roomCode: return int(0)

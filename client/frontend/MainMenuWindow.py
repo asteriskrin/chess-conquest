@@ -81,10 +81,10 @@ class MainMenuWindow(GameWindow):
         self.roomCodeInputBox = RoomCodeInputBox(250, 400, 180, 50)
 
         # Room Code Text
-        self.textRoomCode = self.baseFont.render("Masukkan Room Code:", True, (255, 255, 255))
+        self.textRoomCode = self.baseFont.render("Insert Room Code:", True, (255, 255, 255))
 
     def setPlayerNameInWelcome(self, playerName):
-        self.textWelcome = self.baseFont.render("Selamat datang di Chess Conquest, {}!".format(playerName), True, (255, 255, 255))
+        self.textWelcome = self.baseFont.render("Welcome to Chess Conquest, {}!".format(playerName), True, (255, 255, 255))
 
     def setRoomErrorText(self, message):
         self.textRoomError = self.baseFont.render(message, True, (255, 255, 255))

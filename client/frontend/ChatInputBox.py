@@ -48,5 +48,10 @@ class ChatInputBox:
         return message
 
     def draw(self, screen):
+        pos = pygame.mouse.get_pos()
+        if self.rect.collidepoint(pos):
+            pygame.draw.rect(screen, self.COLOR_ACTIVE, self.rect, 2)
+        else:
+            pygame.draw.rect(screen, self.color, self.rect, 2)
+        
         screen.blit(self.text_surface, (self.rect.x + 5, self.rect.y + 5))
-        pygame.draw.rect(screen, self.color, self.rect, 2)

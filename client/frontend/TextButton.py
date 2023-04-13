@@ -6,7 +6,7 @@ import pygame
 
 class TextButton:
 	def __init__(self, x, y, width, height, bgColor, bgHoverColor, textColor, text="Button", fontSize = 30):
-		#self.clickSound = pygame.mixer.Sound("frontend/music/glitchy-tone-97.wav")
+		self.clickSound = pygame.mixer.Sound("frontend/music/glitchy-tone-97.wav")
 		self.x = x
 		self.y = y
 		self.width = width
@@ -24,7 +24,7 @@ class TextButton:
 	def handleEvent(self, event):
 		if event.type == pygame.MOUSEBUTTONDOWN:
 			if self.rect.collidepoint(event.pos):
-				#self.clickSound.play()
+				self.clickSound.play()
 				print("TextButton clicked\n")
 				return True
 		return False

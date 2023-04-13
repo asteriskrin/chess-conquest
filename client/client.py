@@ -201,7 +201,7 @@ def recvMsg(sock):
             time.sleep(3)
             chessWindow.setRoomId(str(myRoomId))
             chessWindow.setPopUpMessage(
-                "Waiting for player... (1/4) " + str(playerName))
+                "Waiting for players... (1/4) " + str(playerName))
             roomPlayers.append(playerName)
 
             # Player Star Info
@@ -228,7 +228,7 @@ def recvMsg(sock):
                     "Room full ({}/4) {}".format(len(body), playerListStr))
             else:
                 chessWindow.setPopUpMessage(
-                    "Waiting for player... ({}/4) {}".format(len(body), playerListStr))
+                    "Waiting for players... ({}/4) {}".format(len(body), playerListStr))
             chessWindow.destroyStartButton()
 
             # Player Star Info
@@ -250,7 +250,7 @@ def recvMsg(sock):
                     "Room full ({}/4) {}".format(len(roomPlayers), playerListStr))
             else:
                 chessWindow.setPopUpMessage(
-                    "Waiting for player... ({}/4) {}".format(len(roomPlayers), playerListStr))
+                    "Waiting for players... ({}/4) {}".format(len(roomPlayers), playerListStr))
 
             # Player Star Info
             playerStarData = []
@@ -287,7 +287,7 @@ def recvMsg(sock):
                 # Prevent user click
                 isGameStarted = False
                 chessWindow.chatBox.addChat("System", "Game over.")
-                chessWindow.chatBox.addChat("System", "{} win.".format(winner))
+                chessWindow.chatBox.addChat("System", "{} wins.".format(winner))
             else:
                 chessWindow.setPopUpMessage(
                     "It is {}'s turn now".format(body["NEXT_PLAYER"][1]))
@@ -313,7 +313,7 @@ def recvMsg(sock):
 
         # Join Room Failed
         elif response == "JOIN_ROOM_FAILED":
-            gameFrontend.getWin().setRoomErrorText("Room Code tidak ditemukan")
+            gameFrontend.getWin().setRoomErrorText("Room Code not found")
 
         # Buy Pawn Failed
         elif response == "BUY_FAILED":
@@ -523,9 +523,9 @@ def onMainMenuButtonClick(buttonName):
     if buttonName == "NAME_SUBMIT":
         playerName = mainMenuWindow.getNameInput()
         if len(playerName) < 3:
-            mainMenuWindow.setNameInputErrorText("Nama minimal 3 karakter")
+            mainMenuWindow.setNameInputErrorText("Name minimal 3 characters")
         elif not playerName.isalnum():
-            mainMenuWindow.setNameInputErrorText("Nama harus alphanumeric")
+            mainMenuWindow.setNameInputErrorText("Name must be alphanumeric")
         else:
             mainMenuWindow.showRoomMenu()
             mainMenuWindow.setPlayerNameInWelcome(playerName)
@@ -534,7 +534,7 @@ def onMainMenuButtonClick(buttonName):
     elif buttonName == "JOIN_ROOM":
         myRoomId = mainMenuWindow.getRoomCodeInput()
         if not myRoomId or len(str(myRoomId)) < 6:
-            mainMenuWindow.setRoomErrorText("Room Code tidak valid")
+            mainMenuWindow.setRoomErrorText("Room Code invalid")
         else:
             joinRoom(serverSocket, playerName)
 
