@@ -46,7 +46,7 @@ class GameFrontend:
     def openMainMenuWindow(self, callback1):
         if self.bgm:
             self.bgm.stop()
-        self.bgm = pygame.mixer.Sound("frontend/music/this-minimal-technology-pure-12327.wav")
+        self.bgm = pygame.mixer.Sound("frontend/music/MIRAI.ogg")
         self.bgm.play(loops=1)
         mmw = MainMenuWindow(callback1)
         self.__attachWindow(mmw)
@@ -55,8 +55,7 @@ class GameFrontend:
         if self.bgm:
             self.bgm.stop()
 
-        # TODO: Fix crash (reserach: find out)
-        # self.bgm = pygame.mixer.Sound("frontend/music/irreducible-111374.wav")
-        # self.bgm.play(loops=1)
+        self.bgm = pygame.mixer.Sound("frontend/music/Hello_my_world.ogg")
+        self.bgm.play(loops=1)
         self.__attachWindow(ChessGameWindow(callback1, callback2, callback3))
         return self.window
