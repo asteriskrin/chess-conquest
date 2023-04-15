@@ -114,7 +114,8 @@ class ChessGameWindow(GameWindow):
     def draw(self, screen):
         screen.blit(self.background, (0, 0))
 
-        self.drawMessage(screen, 81, 50, self.popupMessage, self.baseFont)
+        self.drawMessage(screen, 150, 20, self.popupMessage, self.baseFont)
+        self.drawMessageBox(screen, 200, 20)
         self.drawMessage(screen, 370, 650, "Piece Change", self.baseFont)
         self.drawMessage(screen, 90, 750, "Point Needed", self.baseFont)
         self.drawMessage(screen, 270, 750, "5", self.baseFont)
@@ -154,14 +155,59 @@ class ChessGameWindow(GameWindow):
         popup = font.render(message, True, (255, 255, 255))
         screen.blit(popup,(x, y))
 
+    def drawMessageBox(self, screen, x, y):
+        color = (255, 0, 0)
+        pygame.draw.rect(screen, color, pygame.Rect(150, 10, 400, 40), 1)
+        #pygame.display.flip()
+        
+
     def drawGameState(self, screen):
         if self.chessboardState:
             self.chessboardSection.drawGameState(screen, self.chessboardState, self.ownerState)
             self.chessboardSection.drawHighlight(screen)
 
+    def __getMovingPiece(self, oldState, newState):
+        sx = 0
+        sy = 0
+        fx = 0
+        fy = 0
+
+        x = 0
+        y = 0
+        while x < 8:
+            while y < 8:
+                if oldState[x][y] != newState[x][y]:
+                    sx = x
+                    sy = y
+                    x = 8
+                    y = 8
+                y += 1
+            x += 1
+        
+        x = 0
+        y = 0
+        while x < 8:
+            while y < 8:
+                if newState[x][y] != oldState[x][y] and x != sx and y != sy:
+                    fx = x
+                    fy = y
+                    x = 8
+                    y = 8
+                y += 1
+            x += 1
+        
+        return [sx, sy, fx, fy]
+
     def setBoardState(self, chessboardState, ownerState):
         # This code is not optimized, it needs to be optimized in future development
         
+        # Get old board state and new board state to know which piece moved
+        # movingPiece = [sx, sy, fx, fy]
+        # If no piece moves, movingPiece = None
+        if self.chessboardState:
+            movingPiece = self.__getMovingPiece(self.chessboardState, chessboardState)
+            self.chessboardSection.setMovingPiece(movingPiece)
+
         if not self.ownerColor:
             owners = []
             for row in ownerState:

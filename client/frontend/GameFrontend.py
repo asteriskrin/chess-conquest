@@ -47,7 +47,7 @@ class GameFrontend:
         if self.bgm:
             self.bgm.stop()
         self.bgm = pygame.mixer.Sound("frontend/music/MIRAI.ogg")
-        self.bgm.play(loops=1)
+        self.bgm.play(loops=-1)
         mmw = MainMenuWindow(callback1)
         self.__attachWindow(mmw)
 
@@ -56,6 +56,6 @@ class GameFrontend:
             self.bgm.stop()
 
         self.bgm = pygame.mixer.Sound("frontend/music/Hello_my_world.ogg")
-        self.bgm.play(loops=1)
+        self.bgm.play(loops=-1)
         self.__attachWindow(ChessGameWindow(callback1, callback2, callback3))
         return self.window

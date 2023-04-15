@@ -79,19 +79,20 @@ def onClickChessBox(x, y):
             selectedPiece = None
             chessWindow.hideMovementHighlight()
         else:
-            if chessWindow.ownerState[x][y]:
-                if chessWindow.ownerState[x][y] == playerName:
-                    if turnPlayerName == playerName:
-                        checkMove(serverSocket, x, y)
-                        selectedPiece = [x, y]
+            if chessWindow.ownerState:
+                if chessWindow.ownerState[x][y]:
+                    if chessWindow.ownerState[x][y] == playerName:
+                        if turnPlayerName == playerName:
+                            checkMove(serverSocket, x, y)
+                            selectedPiece = [x, y]
+                        else:
+                            print("This is your piece, but it is not your turn right now, please wait for {} to make move.".format(
+                                turnPlayerName))
                     else:
-                        print("This is your piece, but it is not your turn right now, please wait for {} to make move.".format(
-                            turnPlayerName))
+                        print("This is {}'s piece, this is not yours.".format(
+                            chessWindow.ownerState[x][y]))
                 else:
-                    print("This is {}'s piece, this is not yours.".format(
-                        chessWindow.ownerState[x][y]))
-            else:
-                print("No one owns this piece.")
+                    print("No one owns this piece.")
 
 # Callback when piece button is clicked
 def onPieceButtonSelected(pieceType):
@@ -201,7 +202,7 @@ def recvMsg(sock):
             time.sleep(3)
             chessWindow.setRoomId(str(myRoomId))
             chessWindow.setPopUpMessage(
-                "Waiting for players... (1/4) " + str(playerName))
+                "Waiting for players... (1/4) ")
             roomPlayers.append(playerName)
 
             # Player Star Info
@@ -228,7 +229,7 @@ def recvMsg(sock):
                     "Room full ({}/4) {}".format(len(body), playerListStr))
             else:
                 chessWindow.setPopUpMessage(
-                    "Waiting for players... ({}/4) {}".format(len(body), playerListStr))
+                    "Waiting for players... ({}/4) {}".format(len(body), ""))
             chessWindow.destroyStartButton()
 
             # Player Star Info

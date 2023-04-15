@@ -19,6 +19,7 @@ class TextButton:
 		self.rect = pygame.Rect(x, y, width, height)
 		self.font = pygame.font.Font(None, fontSize)
 		self.caption = self.font.render(text, 1, self.textColor)
+		#To use for button toggle
 		self.active = False
 
 	def handleEvent(self, event):
@@ -26,15 +27,22 @@ class TextButton:
 			if self.rect.collidepoint(event.pos):
 				self.clickSound.play()
 				print("TextButton clicked\n")
+				if self.active == False:
+					self.active = True
+				else:
+					self.active = False
 				return True
 		return False
 
 	def draw(self, screen):
 		pos = pygame.mouse.get_pos()
-		if self.rect.collidepoint(pos):
-			pygame.draw.rect(screen, self.bgHoverColor, self.rect, 2)
+		if self.active == True:
+				pygame.draw.rect(screen, self.bgHoverColor, self.rect, 2)
 		else:
-			pygame.draw.rect(screen, self.bgColor, self.rect, 2)
+			if self.rect.collidepoint(pos):
+				pygame.draw.rect(screen, self.bgHoverColor, self.rect, 2)
+			else:
+				pygame.draw.rect(screen, self.bgColor, self.rect, 2)
 
 		screen.blit(self.caption, (self.rect.x + 10, self.rect.y + 10))
 
